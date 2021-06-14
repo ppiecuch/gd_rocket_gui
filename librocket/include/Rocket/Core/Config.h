@@ -1,0 +1,3 @@
+#ifndef ROCKET_SUPPORT_RTTI
+# define ROCKET_SUPPORT_RTTI 1
+#endif
