@@ -4,21 +4,25 @@ import os
 Import("env")
 Import("env_modules")
 
-is_clang_or_gcc = ("gcc" in os.path.basename(env["CC"])) or ("clang" in os.path.basename(env["CC"])) or ("osxcross" in env)
+is_gcc = "gcc" in os.path.basename(env["CC"])
 
 env_module = env_modules.Clone()
 
-sources = Glob("*.cpp") \
-    + Glob("librocket/source/Core/*.cpp") \
-    + Glob("librocket/source/Controls/*.cpp") \
+sources = (
+    Glob("*.cpp")
+    + Glob("librocket/source/Core/*.cpp")
+    + Glob("librocket/source/Controls/*.cpp")
     + Glob("librocket/source/Debugger/*.cpp")
+)
 
 env_module.Prepend(CPPPATH=["librocket/include", "librocket/source"])
 
-if (env["platform"] == "android" and not env["android_rtti"]) or (env["platform"] == "iphone" and not env["ios_exceptions"]):
+if (env["platform"] == "android" and not env["android_rtti"]) or (
+    env["platform"] == "iphone" and not env["ios_exceptions"]
+):
     env_module.Append(CPPDEFINES=["ROCKET_SUPPORT_RTTI=0"])
-if is_clang_or_gcc:
-     env_module.Append(CXXFLAGS=["-Wno-maybe-uninitialized"])
+if is_gcc:
+    env_module.Append(CXXFLAGS=["-Wno-maybe-uninitialized"])
 
 # Compile as a static library
 lib = env_module.Library("gd_rocketgui", sources)
