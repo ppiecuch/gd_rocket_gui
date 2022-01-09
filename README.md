@@ -1,4 +1,6 @@
-### This repo is no longer maintained. See: https://github.com/ppiecuch/gd_rmlui.git for continuation of development.
+### This module is no longer maintained. See repository: https://github.com/ppiecuch/gd_rmlui.git for more development.
+
+--
 
 ### LibRocket module for Godot
 
